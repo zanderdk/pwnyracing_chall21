@@ -3,6 +3,15 @@
 My solution for pwnyracing chall21.
 The exploit can be run by executing exploit.sh
 
+## requirements
+
+1. python
+2. pwntools
+3. gdb
+4. libc-database
+5. gef recomended
+6. pwngdb recomended
+
 ## The Executeable
 The executeable asks for a input and simply outputs it back to you in a loop.
 
