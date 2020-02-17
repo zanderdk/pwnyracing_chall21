@@ -40,15 +40,21 @@ parser.add_argument('--libc', dest='libc', default=systemLibc,
                     help='libc path (defaults: system libc 64bit)')
 parser.add_argument('--ld', dest='ld', default=systemLd,
                     help='ld path (defaults: system ld 64bit)')
-parser.add_argument('--exec', dest='exec', default='debug',
-                    help='how to execute debug/local/remote')
-parser.add_argument('--host', dest='host', default=None,
+parser.add_argument('--exec', dest='exec', default='attach',
+                    help='how to execute debug/local/remote/attach')
+parser.add_argument('--host', dest='host', default='None',
                     help='ip of remote host')
 parser.add_argument('--port', dest='port', default=None,
                     help='port of remote host')
 parser.add_argument("--solid-events", dest='events', type=str2bool, nargs='?',
                         const=True, default=False,
                         help="break on solid events such as lib loading")
+parser.add_argument("--pre-load-ld", dest='preloadld', type=str2bool, nargs='?',
+                        const=True, default=False,
+                        help="if true preload the specified ld")
+parser.add_argument("--pre-load-libc", dest='preloadlibc', type=str2bool, nargs='?',
+                        const=True, default=False,
+                        help="if true preload the specified libc")                        
 parser.add_argument('onegadget', metavar='N', nargs='*',
                     help='onegadget to try')
 
@@ -70,7 +76,15 @@ def setup(elfPath: str, breakpoints: str):
     if args.events:
         gdbSettings += 'set stop-on-solib-events 1'
 
-    preloadString = args.ld + ' ' + args.libc
+    preloadString = ''
+    if args.preloadld:
+        preloadString = args.ld     
+    
+    if args.preloadlibc:
+        if preloadString != '':
+            preloadString += ' '
+        preloadString += args.libc
+
     env = my_env = os.environ.copy()
     env["LD_PRELOAD"] = preloadString
 
@@ -80,7 +94,10 @@ def setup(elfPath: str, breakpoints: str):
     gdbSettings += breakpoints
 
     if args.exec == 'attach':
-        io = process(elf.path, env=env)
+        if preloadString == '':
+            io = process(elf.path)
+        else:
+            io = process(elf.path, env=env)
         pwnlib.gdb.attach(io, gdbSettings)
     if args.exec == 'debug':
         #TODO make gdb.debug work with env
