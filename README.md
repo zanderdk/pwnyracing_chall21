@@ -16,7 +16,7 @@ The exploit can be run by executing exploit.sh
 The executeable asks for a input and simply outputs it back to you in a loop.
 
 ## Vulnerability
-there is a simple stack buffer overflow error at address 0xb31 as i copyes at most 200 bytes to a buffer of size 0x48
+there is a simple stack buffer overflow error at address 0xb31 as we can copyes at most 200 bytes to a buffer of size 0x48
 
 ### checksec on ./chall21
 
