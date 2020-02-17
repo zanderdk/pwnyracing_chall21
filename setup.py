@@ -100,8 +100,10 @@ def setup(elfPath: str, breakpoints: str):
             io = process(elf.path, env=env)
         pwnlib.gdb.attach(io, gdbSettings)
     if args.exec == 'debug':
-        #TODO make gdb.debug work with env
-        io = pwnlib.gdb.debug(elf.path, gdbSettings)
+        if preloadString != '':
+            io = pwnlib.gdb.debug(elf.path, gdbSettings, env=env)
+        else:
+            io = pwnlib.gdb.debug(elf.path, gdbSettings)
     if args.exec == 'local':
         io = process(elf.path, env=env)
     if args.exec == 'remote':
