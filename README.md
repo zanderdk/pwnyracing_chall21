@@ -9,8 +9,9 @@ The exploit can be run by executing exploit.sh
 2. pwntools
 3. gdb
 4. libc-database
-5. gef recomended
-6. pwngdb recomended
+5. one_gadget
+6. gef recomended
+7. pwngdb recomended
 
 ## The Executeable
 The executeable asks for a input and simply outputs it back to you in a loop.
