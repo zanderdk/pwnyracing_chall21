@@ -11,11 +11,11 @@ there is a simple stack buffer overflow error at address 0xb31 as i copyes at mo
 
 ### checksec on ./chall21
 
-Arch:       amd64-64-little
-RELRO:   Full RELRO
-Stack:     Canary found
-NX:          NX enabled
-PIE:         PIE enabled
+* Arch:       amd64-64-little
+* RELRO:   Full RELRO
+* Stack:     Canary found
+* NX:          NX enabled
+* PIE:         PIE enabled
 
 ## Exploit idea
 
