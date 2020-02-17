@@ -22,11 +22,11 @@ PIE:         PIE enabled
 As there is a loop we can abuse the buffer overflow as many times as we want which will be very handy.
 
 Attack idea:
-Leak stack canary
-Leak ELF base address
-build small rop chain to leak printf addresses
-make the rop chain run main again to exploit buffer overflow once more
-send oneGadget with the now know libc version
+1. Leak stack canary
+2. Leak ELF base address
+3. build small rop chain to leak printf addresses
+4. make the rop chain run main again to exploit buffer overflow once more
+5. send oneGadget with the now know libc version
 
 ### Leak stack canary
 simply send 0xe49 A's as this will fill the buffer and the first null char of the stack canary
